@@ -1,0 +1,112 @@
+# slumber.yml
+#https://slumber.lucaspickering.me/book/api/request_collection/profile.html
+
+profiles:
+  local:
+    name: Local
+    data:
+      host: http://localhost:7878
+  production:
+    name: production
+    data:
+      host: https://myserver.com
+
+# This is needed to tell Slumber not to complain about an unknown key
+.ignore:
+  # The name here is arbitrary, pick any name you like
+  request_base: &request_base
+    headers:
+      Accept: application/json
+    authentication: !bearer "{{chains.token}}"
+      
+requests:
+  # slumber request -p local root
+  root: !request
+    method: GET
+    url: "{{host}}/"
+  
+  #slumber request -p local get_tasks | jq
+  get_tasks: !request
+    method: GET
+    url: "{{host}}/tasks"
+    
+  #slumber request -p local add_task1
+  add_task1: !request
+    headers:
+      content-type: application/json
+    method: POST
+    url: "{{host}}/tasks"
+    body: >
+      {"name": "Watch YouTube", "priority": 4}
+
+  #slumber request -p local add_task2
+  add_task2: !request
+    headers:
+      content-type: application/json
+    method: POST
+    url: "{{host}}/tasks"
+    body: >
+      {"name": "Watch Find a job", "priority": 1}
+
+  #slumber request -p local add_task3
+  add_task3: !request
+    headers:
+      content-type: application/json
+    method: POST
+    url: "{{host}}/tasks"
+    body: >
+      {"name": "Get married", "priority": 2}
+
+  #slumber request -p local update_task1
+  update_task1: !request
+    headers:
+      content-type: application/json
+    method: PATCH
+    url: "{{host}}/tasks/1"
+    body: >
+      {"name": "Study", "priority": 3}
+  #slumber request -p local update_task1b
+  update_task1b: !request
+    headers:
+      content-type: application/json
+    method: PATCH
+    url: "{{host}}/tasks/1"
+    body: >
+      {"name": "Study_b"}
+  #slumber request -p local update_task1c
+  update_task1c: !request
+    headers:
+      content-type: application/json
+    method: PATCH
+    url: "{{host}}/tasks/1"
+    body: >
+      {"priority": 2}
+
+# Delete
+  #slumber request -p local delete_task1
+  delete_task1: !request
+    headers:
+      content-type: application/json
+    method: DELETE
+    url: "{{host}}/tasks/1"
+
+  #slumber request -p local delete_task2
+  delete_task2: !request
+    headers:
+      content-type: application/json
+    method: DELETE
+    url: "{{host}}/tasks/2"
+
+  #slumber request -p local delete_task3
+  delete_task3: !request
+    headers:
+      content-type: application/json
+    method: DELETE
+    url: "{{host}}/tasks/3"
+
+  #slumber request -p local delete_task4
+  delete_task4: !request
+    headers:
+      content-type: application/json
+    method: DELETE
+    url: "{{host}}/tasks/4"
