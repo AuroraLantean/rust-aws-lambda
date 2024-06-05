@@ -42,6 +42,7 @@ zip dummy.zip target/lambda/aws-lambda/bootstrap
 
 ## API Endpoints
 https://abc123.lambda-url.ap-northeast-2.on.aws/
+
 https://abc123.lambda-url.ap-northeast-2.on.aws/?name=Jack
 
 ### Use Insomnia to send Requests
