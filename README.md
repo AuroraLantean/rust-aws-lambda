@@ -29,16 +29,18 @@ cd rust-aws-lambda
    
 ```bash
 cargo lambda build --release --arm64
-zip dummy.zip target/lambda/aws-lambda/bootstrap
-
+zip dummy.zip target/lambda/aws-lambda/bootstrap -j
+cp dummy.zip ~/
 ```
 
 3. Deployment to AWS
-- Loging to AWS, search for "Lambda", click on "Create A Function", then "Author from scratch".
+- Loging to AWS, on top right, set data center to one close to you. 
+- Search for "Lambda", click on "Create A Function", then "Author from scratch".
 - Configuration: Function Name: dummy, Runtime = Amazon Linux 2023(for Go/Rust/C++), Architecture = arm64(according to what architecture you have built your lambda function), then click on "Create Function"
 - Under Code tab: Code Source, click on "Upload from", then select your built lambda function
 - Under Configuration, and Function URL: Create function URL, Auth = None(so the API is open to the public)
-- Copy the function URL
+- Copy the function URL, use one of the API senders below
+- Under "Monitor" tab, click on "View CloudWatch logs"
 
 ## API Endpoints
 https://abc123.lambda-url.ap-northeast-2.on.aws/
